@@ -15,7 +15,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-DATA_NAME = "rowingdata.csv"
+DATA_NAME = "rowingdata-simplified.csv"
 LABEL = "BoatPlacementImprovement"
 TEST_PERCENT = 0.10
 MAX_LABEL = 0             # Determined from code
@@ -170,20 +170,16 @@ input_data, attributes = get_data(DATA_NAME)
 normal_data = standardize_data(input_data)
 
 # Split Data
-training_data, test_data = data_split(normal_data, TEST_PERCENT)
 attributes_without_label = copy.copy(attributes)
 attributes_without_label.pop(attributes_without_label.index(LABEL))
 
-MAX_LABEL = int(max(training_data[LABEL]))
+MAX_LABEL = int(max(normal_data[LABEL]))
 
 all_info_gain = []
 for attribute in attributes_without_label:
-    all_info_gain.append(info_gain(attribute, training_data))
+    all_info_gain.append(info_gain(attribute, normal_data))
 
-
-print(all_info_gain)
-"""
 for i in range(len(attributes_without_label)):
     print('Information gain of', attributes_without_label[i], 'is', all_info_gain[i], '\n')
-"""
+
 
